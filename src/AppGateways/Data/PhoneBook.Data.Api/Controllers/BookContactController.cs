@@ -25,7 +25,7 @@ namespace PhoneBook.Data.Api.Controllers
         [HttpGet("{uuid:guid}")]
         public async Task<Response<BookContact>> Get(Guid uuid)
         {
-            return await _bookContactService.GetBookById(uuid);
+            return await _bookContactService.GetBookContactById(uuid);
         }
 
         [HttpPost]
