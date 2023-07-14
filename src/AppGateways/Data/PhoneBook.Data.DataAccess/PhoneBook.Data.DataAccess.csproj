@@ -11,4 +11,9 @@
     <Folder Include="Concrete\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PhoneBook.Data.Core\PhoneBook.Data.Core.csproj" />
+    <ProjectReference Include="..\PhoneBook.Data.Entities\PhoneBook.Data.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
