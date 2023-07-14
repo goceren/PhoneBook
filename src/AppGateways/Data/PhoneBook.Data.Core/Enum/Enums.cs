@@ -14,5 +14,12 @@ namespace PhoneBook.Data.Core.Enum
             Email= 1,
             Location= 2
         }
+
+        public enum ResponseStatusEnum
+        {
+            Error = 0,
+            Success = 1,
+            NoData = 2
+        }
     }
 }
