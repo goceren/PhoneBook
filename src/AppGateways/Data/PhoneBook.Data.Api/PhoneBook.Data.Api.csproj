@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\PhoneBook.Data.Business\PhoneBook.Data.Business.csproj" />
+    <ProjectReference Include="..\PhoneBook.Data.Core\PhoneBook.Data.Core.csproj" />
+    <ProjectReference Include="..\PhoneBook.Data.Entities\PhoneBook.Data.Entities.csproj" />
   </ItemGroup>
 
 </Project>
