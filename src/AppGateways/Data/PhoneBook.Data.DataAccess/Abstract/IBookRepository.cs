@@ -13,5 +13,7 @@ namespace PhoneBook.Data.DataAccess.Abstract
     public interface IBookRepository : IGenericRepository<Book>
     {
         Task<IQueryable<Book>> GetIncludeContact(Expression<Func<Book, bool>> filter = null);
+
+        Task<Book> GetBookIncludeContact(Expression<Func<Book, bool>> filter = null);
     }
 }
