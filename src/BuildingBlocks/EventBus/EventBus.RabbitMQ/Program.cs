@@ -1,3 +1,5 @@
+using EventBus.Business.Abstract;
+using EventBus.Business.Concrete;
 using EventBus.RabbitMQ;
 
 IHost host = Host.CreateDefaultBuilder(args)
@@ -5,6 +7,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         IConfiguration configuration = hostContext.Configuration;
         services.AddSingleton(configuration);
+        services.AddTransient<IReportQService, ReportQService>();
         services.AddHostedService<Worker>();
     })
     .Build();
