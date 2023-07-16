@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReportService.Business\ReportService.Business.csproj" />
+    <ProjectReference Include="..\ReportService.Core\ReportService.Core.csproj" />
+    <ProjectReference Include="..\ReportService.Entities\ReportService.Entities.csproj" />
   </ItemGroup>
 
 </Project>
