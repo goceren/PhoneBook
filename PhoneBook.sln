@@ -16,11 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{4456
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C89FA778-A04A-422A-83E2-AA84B3510027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Web.Business", "src\Clients\Web\PhoneBook.Web.Business\PhoneBook.Web.Business.csproj", "{BA2A8170-A972-4539-959E-0E48350A00EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Web.Business", "src\Clients\Web\PhoneBook.Web.Business\PhoneBook.Web.Business.csproj", "{BA2A8170-A972-4539-959E-0E48350A00EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Web.Core", "src\Clients\Web\PhoneBook.Web.Core\PhoneBook.Web.Core.csproj", "{260A68B1-1EB7-4DCA-9E0B-08531738D645}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Web.Core", "src\Clients\Web\PhoneBook.Web.Core\PhoneBook.Web.Core.csproj", "{260A68B1-1EB7-4DCA-9E0B-08531738D645}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Web.WebApp", "src\Clients\Web\PhoneBook.Web.WebApp\PhoneBook.Web.WebApp.csproj", "{76091520-EB30-49F9-BD4E-43D608CF8CEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Web.WebApp", "src\Clients\Web\PhoneBook.Web.WebApp\PhoneBook.Web.WebApp.csproj", "{76091520-EB30-49F9-BD4E-43D608CF8CEA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportService", "{A725B616-C59C-44C1-89C8-F0FC6F6742E9}"
 EndProject
@@ -32,33 +32,49 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{28911D5E-E450-447B-B477-EF4F32ACB815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{E446E25C-135A-428A-8CA0-9A6EDFD13057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ", "src\BuildingBlocks\EventBus\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{E446E25C-135A-428A-8CA0-9A6EDFD13057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService", "src\Services\ReportService\ReportService\ReportService.csproj", "{395D2962-DF4B-45E0-BC49-755CCCAE509D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService", "src\Services\ReportService\ReportService\ReportService.csproj", "{395D2962-DF4B-45E0-BC49-755CCCAE509D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Business", "src\BuildingBlocks\EventBus\EventBus.Business\EventBus.Business.csproj", "{402619AC-08E0-4FEC-812E-D71EFBAAD17D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Business", "src\BuildingBlocks\EventBus\EventBus.Business\EventBus.Business.csproj", "{402619AC-08E0-4FEC-812E-D71EFBAAD17D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Report.Api", "src\AppGateways\Report\PhoneBook.Report.Api\PhoneBook.Report.Api.csproj", "{D3876C2B-4EB6-4856-8F5D-75775B6C5CA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.Api", "src\AppGateways\Report\PhoneBook.Report.Api\PhoneBook.Report.Api.csproj", "{D3876C2B-4EB6-4856-8F5D-75775B6C5CA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Report.Core", "src\AppGateways\Report\PhoneBook.Report.Core\PhoneBook.Report.Core.csproj", "{1749F0FA-8878-434B-A529-459498F12660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.Core", "src\AppGateways\Report\PhoneBook.Report.Core\PhoneBook.Report.Core.csproj", "{1749F0FA-8878-434B-A529-459498F12660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Report.DataAccess", "src\AppGateways\Report\PhoneBook.Report.DataAccess\PhoneBook.Report.DataAccess.csproj", "{BB3E970B-0D76-4B47-8574-AF7BF445D33A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.DataAccess", "src\AppGateways\Report\PhoneBook.Report.DataAccess\PhoneBook.Report.DataAccess.csproj", "{BB3E970B-0D76-4B47-8574-AF7BF445D33A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Report.Business", "src\AppGateways\Report\PhoneBook.Report.Business\PhoneBook.Report.Business.csproj", "{4B5983F1-F48D-4AA7-8166-3BAD04CF7B94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.Business", "src\AppGateways\Report\PhoneBook.Report.Business\PhoneBook.Report.Business.csproj", "{4B5983F1-F48D-4AA7-8166-3BAD04CF7B94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Report.Entities", "src\AppGateways\Report\PhoneBook.Report.Entities\PhoneBook.Report.Entities.csproj", "{97CE47A4-331D-495B-8FEB-27065A72D62A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Report.Entities", "src\AppGateways\Report\PhoneBook.Report.Entities\PhoneBook.Report.Entities.csproj", "{97CE47A4-331D-495B-8FEB-27065A72D62A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{8E3CACAC-7CE5-4E68-BE59-EC1D88FBA29F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Data.Api", "src\AppGateways\Data\PhoneBook.Data.Api\PhoneBook.Data.Api.csproj", "{588E6776-BF52-4AF9-AAAA-EFAB8C6C8500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Data.Api", "src\AppGateways\Data\PhoneBook.Data.Api\PhoneBook.Data.Api.csproj", "{588E6776-BF52-4AF9-AAAA-EFAB8C6C8500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Data.Core", "src\AppGateways\Data\PhoneBook.Data.Core\PhoneBook.Data.Core.csproj", "{C3653005-E8F9-4A31-877D-69BBE5A0854C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Data.Core", "src\AppGateways\Data\PhoneBook.Data.Core\PhoneBook.Data.Core.csproj", "{C3653005-E8F9-4A31-877D-69BBE5A0854C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Data.Entities", "src\AppGateways\Data\PhoneBook.Data.Entities\PhoneBook.Data.Entities.csproj", "{FC63EBC8-202F-4459-8265-E39CA7546D46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Data.Entities", "src\AppGateways\Data\PhoneBook.Data.Entities\PhoneBook.Data.Entities.csproj", "{FC63EBC8-202F-4459-8265-E39CA7546D46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Data.Business", "src\AppGateways\Data\PhoneBook.Data.Business\PhoneBook.Data.Business.csproj", "{9FACD6F0-24C7-4D7C-BC0C-F3C48F6F8D21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Data.Business", "src\AppGateways\Data\PhoneBook.Data.Business\PhoneBook.Data.Business.csproj", "{9FACD6F0-24C7-4D7C-BC0C-F3C48F6F8D21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneBook.Data.DataAccess", "src\AppGateways\Data\PhoneBook.Data.DataAccess\PhoneBook.Data.DataAccess.csproj", "{A5030775-C7E5-4A7C-9B63-5BFCC665154D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Data.DataAccess", "src\AppGateways\Data\PhoneBook.Data.DataAccess\PhoneBook.Data.DataAccess.csproj", "{A5030775-C7E5-4A7C-9B63-5BFCC665154D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhoneBook.Web.Entities", "src\Clients\Web\PhoneBook.Web.Entities\PhoneBook.Web.Entities.csproj", "{B941C1F3-518A-4931-A7BC-83F32B2A3CF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService.Business", "src\Services\ReportService\ReportService.Business\ReportService.Business.csproj", "{CCBC8E74-A2E0-4706-B819-F91606490F28}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService.Core", "src\Services\ReportService\ReportService.Core\ReportService.Core.csproj", "{09D3B771-BA6E-48DC-8D6B-76E13F264D4D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService.Entities", "src\Services\ReportService\ReportService.Entities\ReportService.Entities.csproj", "{25834B68-A85E-4317-B020-6E73D557D51E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Core", "src\BuildingBlocks\EventBus\EventBus.Core\EventBus.Core.csproj", "{97F21360-96ED-4328-A40A-B17BE1CB7FE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C312A733-C777-446A-B6A8-A7C1A58A0643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.UnitTest", "tests\UnitTestQueue\Queue.UnitTest\Queue.UnitTest.csproj", "{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApi.UnitTest", "tests\DataApi.UnitTest\DataApi.UnitTest.csproj", "{5BA8978B-7A54-46FE-86D2-04EC616D609E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +146,34 @@ Global
 		{A5030775-C7E5-4A7C-9B63-5BFCC665154D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5030775-C7E5-4A7C-9B63-5BFCC665154D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5030775-C7E5-4A7C-9B63-5BFCC665154D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B941C1F3-518A-4931-A7BC-83F32B2A3CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B941C1F3-518A-4931-A7BC-83F32B2A3CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B941C1F3-518A-4931-A7BC-83F32B2A3CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B941C1F3-518A-4931-A7BC-83F32B2A3CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCBC8E74-A2E0-4706-B819-F91606490F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCBC8E74-A2E0-4706-B819-F91606490F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCBC8E74-A2E0-4706-B819-F91606490F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCBC8E74-A2E0-4706-B819-F91606490F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D3B771-BA6E-48DC-8D6B-76E13F264D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D3B771-BA6E-48DC-8D6B-76E13F264D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D3B771-BA6E-48DC-8D6B-76E13F264D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D3B771-BA6E-48DC-8D6B-76E13F264D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25834B68-A85E-4317-B020-6E73D557D51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25834B68-A85E-4317-B020-6E73D557D51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25834B68-A85E-4317-B020-6E73D557D51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25834B68-A85E-4317-B020-6E73D557D51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F21360-96ED-4328-A40A-B17BE1CB7FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F21360-96ED-4328-A40A-B17BE1CB7FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F21360-96ED-4328-A40A-B17BE1CB7FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F21360-96ED-4328-A40A-B17BE1CB7FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +204,13 @@ Global
 		{FC63EBC8-202F-4459-8265-E39CA7546D46} = {8E3CACAC-7CE5-4E68-BE59-EC1D88FBA29F}
 		{9FACD6F0-24C7-4D7C-BC0C-F3C48F6F8D21} = {8E3CACAC-7CE5-4E68-BE59-EC1D88FBA29F}
 		{A5030775-C7E5-4A7C-9B63-5BFCC665154D} = {8E3CACAC-7CE5-4E68-BE59-EC1D88FBA29F}
+		{B941C1F3-518A-4931-A7BC-83F32B2A3CF0} = {C89FA778-A04A-422A-83E2-AA84B3510027}
+		{CCBC8E74-A2E0-4706-B819-F91606490F28} = {A725B616-C59C-44C1-89C8-F0FC6F6742E9}
+		{09D3B771-BA6E-48DC-8D6B-76E13F264D4D} = {A725B616-C59C-44C1-89C8-F0FC6F6742E9}
+		{25834B68-A85E-4317-B020-6E73D557D51E} = {A725B616-C59C-44C1-89C8-F0FC6F6742E9}
+		{97F21360-96ED-4328-A40A-B17BE1CB7FE5} = {28911D5E-E450-447B-B477-EF4F32ACB815}
+		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D} = {C312A733-C777-446A-B6A8-A7C1A58A0643}
+		{5BA8978B-7A54-46FE-86D2-04EC616D609E} = {C312A733-C777-446A-B6A8-A7C1A58A0643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DAE62CF-E4D3-4731-8663-DCC653FB0327}
