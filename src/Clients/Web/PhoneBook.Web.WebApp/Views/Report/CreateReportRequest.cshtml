@@ -1,0 +1,59 @@
+﻿@model PhoneBook.Web.Entities.Dto.Report.ReportRequestDto
+@using PhoneBook.Web.Core.Enum
+@{
+    Layout = null;
+}
+
+<div class="modal-body px-sm-5 pt-50">
+    <section class="vertical-wizard">
+        <div class="bs-stepper vertical vertical-wizard-example p-4">
+            <form id="CreateForm">
+                <div class="row">
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="Location">Location</label>
+                            @Html.TextBoxFor(i => i.Location, new { @class = "form-control", @autocomplete = "off", @placeholder = "Location" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-2 pt-50">
+                        <button type="reset" class="btn btn-outline-secondary me-1" data-bs-dismiss="modal" aria-label="Close">
+                            Close
+                        </button>
+                        <button id="submit" type="submit" id="btn-save-role" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+
+
+<script>
+    $('#submit').on('click', function () {
+        $.ajax({
+            async: false,
+            type: "post",
+            dataType: "json",
+            data: $("#CreateForm").serialize(),
+            url: '/Report/CreateReportRequest',
+            success: function (result) {
+                if (result.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    console.log(result)
+                }
+                else {
+                }
+            },
+            error: function () {
+            },
+            beforeSend: function () {
+            },
+            complete: function () {
+                document.location.href = "/Report/Index";
+            }
+        });
+    });
+
+</script>

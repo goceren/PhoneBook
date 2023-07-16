@@ -1,22 +1,22 @@
-﻿@using PhoneBook.Web.Core.Enum
+﻿@model PhoneBook.Web.Entities.Dto.Book.BookDto
+@using PhoneBook.Web.Core.Enum
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h5>Phone Books</h5>
-    <table class="table table-bordered" id="bookTable">
+    <h5 id="title">@Model.Name @(Model.LastName)'s Contacts</h5>
+    <table class="table table-bordered" id="bookContactTable">
         <thead>
             <tr>
                 <th scope="col">UUID</th>
-                <th scope="col">Name</th>
-                <th scope="col">LastName</th>
-                <th scope="col">Company</th>
-                <th scope="col">Actions</th>
-                <th scope="col"><button type="button" onclick="InsertBook()" class=" btn btn-success">Add</button></th>
+                <th scope="col">BookUUID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Information</th>
+                <th scope="col"><button type="button" onclick="InsertBookContact()" class=" btn btn-success">Add</button></th>
             </tr>
         </thead>
-        <tbody id="bookBody">
+        <tbody id="bookContactBody">
         </tbody>
     </table>
 </div>
@@ -26,11 +26,12 @@
     LoadBookTable();
 
     function LoadBookTable() {
-        $('#bookBody').html('');
+        $('#bookContactBody').html('');
         $.ajax({
-            url: '@Url.Action("GetBooks","Book")',
+            url: '@Url.Action("GetListByBook","BookContact")',
             type: 'POST',
             dataType: 'json',
+            data: { bookUuid: '@Model.UUID' },
             success: function (response) {
                 if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())' && response.Data.length > 0) {
                     console.log(response.Data);
@@ -38,17 +39,14 @@
                         let innerHtml =
                             '<tr>' +
                             '<th>' + item.UUID + '</th>' +
-                            '<td>' + item.Name + '</td>' +
-                            '<td>' + item.LastName + '</td>' +
-                            '<td>' + item.Company + '</td>' +
-                            `<td><button onclick="EditBook('` + item.UUID + `')" type="button" class="btn btn-primary">Edit</button>` +
-                            `<button onclick="DeleteBook('` + item.UUID + `')" type="button" class="btn btn-danger">Delete</button>` +
-                            `<button onclick="DetailBook('` + item.UUID + `')" type="button" class="btn btn-success">Detail</button>` +
-                            `</td>` +
-                            `<td><button onclick="ShowContacts('` + item.UUID + `')" type="button" class="btn btn-info">Show Contacts</button>` +
+                            '<td>' + item.BookUUID + '</td>' +
+                            '<td>' + (item.Type == '@(Enums.ContactTypeEnum.Email.GetEnumInteger())' ? "Email" : item.Type == '@(Enums.ContactTypeEnum.Phone.GetEnumInteger())' ? "Phone" : "Location") + '</td>' +
+                            '<td>' + item.Information + '</td>' +
+                            `<td><button onclick="EditBookContact('` + item.UUID + `')" type="button" class="btn btn-primary">Edit</button>` +
+                            `<button onclick="DeleteBookContact('` + item.UUID + `')" type="button" class="btn btn-danger">Delete</button>` +
                             `</td>` +
                             '</tr>';
-                        $('#bookBody').append(innerHtml);
+                        $('#bookContactBody').append(innerHtml);
                     });
                 }
             },
@@ -63,10 +61,12 @@
 
 <script>
 
-    function InsertBook(uuid) {
+    function InsertBookContact(uuid) {
         $.ajax({
-            url: '@Url.Action("InsertModal","Book")',
+            url: '@Url.Action("InsertModal","BookContact")',
             type: 'POST',
+            dataType: 'json',
+            data: { bookUuid: '@Model.UUID' },
             success: function (response) {
                 if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
                     console.log(response)
@@ -86,9 +86,9 @@
         });
     }
 
-    function EditBook(uuid) {
+    function EditBookContact(uuid) {
         $.ajax({
-            url: '@Url.Action("EditModal","Book")',
+            url: '@Url.Action("EditModal","BookContact")',
             type: 'POST',
             dataType: 'json',
             data: { uuid: uuid },
@@ -102,7 +102,7 @@
                         'false'
                     );
                 }
-                else {
+                else{
                     $('#bookBody').append(response.Errors[0]);
                 }
             },
@@ -112,10 +112,9 @@
         });
     }
 
-    function DeleteBook(uuid) {
-        console.log(uuid);
+    function DeleteBookContact(uuid) {
         $.ajax({
-            url: '@Url.Action("Delete","Book")',
+            url: '@Url.Action("Delete","BookContact")',
             type: 'POST',
             dataType: 'json',
             data: { uuid: uuid },
@@ -128,14 +127,6 @@
 
             }
         });
-    }
-
-    function ShowContacts(uuid) {
-        document.location.href = "/BookContact/Index?bookUUID=" + uuid;
-    }
-
-    function DetailBook(uuid) {
-        document.location.href = "/Book/Detail?bookUUID=" + uuid;
     }
 
 </script>

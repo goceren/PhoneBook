@@ -1,0 +1,31 @@
+﻿@model PhoneBook.Web.Core.Response<PhoneBook.Web.Entities.Dto.Report.ReportDto>
+@using PhoneBook.Web.Core.Enum
+@{
+    List<DropDownListForItemModel> ReportStatusTypes = new List<DropDownListForItemModel> {
+        new DropDownListForItemModel {
+            Id = 0,
+            Text = "Processing"
+        },
+        new DropDownListForItemModel {
+             Id = 1,
+            Text = "Completed"
+        }
+    };
+}
+
+<div class="text-center">
+    @if (Model.IsSuccessful)
+    {
+        <h5>@Model.Data.Location Report Details</h5>
+
+        <br />
+
+        <h6><b>UUID :</b> @Model.Data.UUID</h6>
+        <h6><b>RequestUUID :</b> @Model.Data.RequestUUID</h6>
+        <h6><b>RequestDate :</b> @Model.Data.RequestDate</h6>
+        <h6><b>Status :</b> @Model.Data.Status</h6>
+        <h6><b>Location :</b> @Model.Data.Location</h6>
+        <h6><b>Person Count :</b> @Model.Data.PersonCount</h6>
+        <h6><b>Phone Count :</b> @Model.Data.PersonPhoneCount</h6>
+    }
+</div>

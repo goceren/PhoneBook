@@ -1,0 +1,138 @@
+﻿@model PhoneBook.Web.Core.Response<List<PhoneBook.Web.Entities.Dto.Report.ReportDto>>
+
+@using PhoneBook.Web.Core.Enum
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="text-center">
+    <h5>Reports</h5>
+    <table class="table table-bordered" id="reportTable">
+        <thead>
+            <tr>
+                <th scope="col">UUID</th>
+                <th scope="col">RequestUUID</th>
+                <th scope="col">Request Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Location</th>
+                <th scope="col">Person Count By Location</th>
+                <th scope="col">Person Phone Count By Location</th>
+                <th scope="col">Actions</th>
+                <th scope="col"><button type="button" onclick="Refresh()" class=" btn btn-success">Refresh</button><button onclick="CreateReport()" type="button" class="btn btn-info">Create</button></th>
+            </tr>
+        </thead>
+        <tbody id="reportTableBody">
+            @if (Model.IsSuccessful)
+            {
+                foreach (var item in Model.Data)
+                {
+                    <tr>
+                        <td>@item.UUID</td>
+                        <td>@item.RequestUUID</td>
+                        <td>@item.RequestDate</td>
+                        <td>@item.Status</td>
+                        <td>@item.Location</td>
+                        <td>@item.PersonCount</td>
+                        <td>@item.PersonPhoneCount</td>
+                        <td><a href="/Report/Detail?uuid=@item.UUID" type="button" class="btn btn-info">Detail</a></td>
+                        <td></td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    function Refresh() {
+        $('#reportTableBody').html('');
+        $.ajax({
+            url: '@Url.Action("GetReports","Report")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())' && response.Data.length > 0) {
+                    console.log(response.Data);
+                    response.Data.forEach((item) => {
+                        let innerHtml =
+                            '<tr>' +
+                            '<td>' + item.UUID + '</td>' +
+                            '<td>' + item.RequestUUID + '</td>' +
+                            '<td>' + item.RequestDate + '</td>' +
+                            '<td>' + (item.Status == '@(Enums.ReportStatusEnum.Completed.GetEnumInteger())' ? "Completed" : "Processing") + '</td>' +
+                            '<td>' + item.Location + '</td>' +
+                            '<td>' + item.PersonCount + '</td>' +
+                            '<td>' + item.PersonPhoneCount + '</td>' +
+                            `<td>` +
+                            `<a href="/Report/Detail?uuid=` + item.UUID + `" type="button" class="btn btn-success">Detail</a>` +
+                            `</td>` +
+                            '</tr>';
+                        $('#reportTableBody').append(innerHtml);
+                    });
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+
+</script>
+
+
+<script>
+
+    function DetailReport(uuid) {
+        $.ajax({
+            url: '@Url.Action("Detail","Report")',
+            type: 'POST',
+            dataType: 'json',
+            data: { uuid: uuid },
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    ShowBootbox('Detail', 'fa-solid fa-pen-to-square',
+                        response.Data,
+                        [],
+                        'large',
+                        'modal-primary',
+                        'false'
+                    );
+                }
+                else {
+                    $('#bookBody').append(response.Errors[0]);
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+
+     function CreateReport() {
+        $.ajax({
+            url: '@Url.Action("CreateReportModal","Report")',
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    ShowBootbox('Create Report Request', 'fa-solid fa-pen-to-square',
+                        response.Data,
+                        [],
+                        'large',
+                        'modal-primary',
+                        'false'
+                    );
+                }
+                else {
+                    $('#bookBody').append(response.Errors[0]);
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+
+</script>

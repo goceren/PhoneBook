@@ -1,0 +1,79 @@
+﻿@model PhoneBook.Web.Entities.Dto.BookContact.UpdateBookContactDto
+@using PhoneBook.Web.Core.Enum
+@{
+    Layout = null;
+
+    IEnumerable<DropDownListForItemModel> BookContactTypes = new List<DropDownListForItemModel> {
+        new DropDownListForItemModel {
+            Id = 0,
+            Text = "Phone"
+        },
+        new DropDownListForItemModel {
+             Id = 1,
+            Text = "Email"
+        },
+        new DropDownListForItemModel {
+             Id = 2,
+            Text = "Location"
+        }
+    };
+}
+
+<div class="modal-body px-sm-5 pt-50">
+    <section class="vertical-wizard">
+        <div class="bs-stepper vertical vertical-wizard-example p-4">
+            <form id="CreateForm">
+                @Html.HiddenFor(i => i.UUID)
+                @Html.HiddenFor(i => i.BookUUID)
+                <div class="row">
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="Name">Name</label>
+                            @Html.DropDownListFor(i => i.Type, new SelectList(BookContactTypes, "Id", "Text"), "Type",  new { @class = "form-control", @autocomplete = "off", @placeholder = "Type" })
+                        </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="Description">Lastname</label>
+                            @Html.TextBoxFor(i => i.Information, new { @class = "form-control", @autocomplete = "off", @placeholder = "LastName" })
+                        </div>
+                    </div>
+                    <div class="col-12 text-center mt-2 pt-50">
+                        <button type="reset" class="btn btn-outline-secondary me-1" data-bs-dismiss="modal" aria-label="Close">
+                            Close
+                        </button>
+                        <button id="submit" type="submit" id="btn-save-role" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+<script>
+    $('#submit').on('click', function () {
+        $.ajax({
+            async: false,
+            type: "post",
+            dataType: "json",
+            data: $("#CreateForm").serialize(),
+            url: '/BookContact/Edit',
+            success: function (result) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                }
+                else {
+                }
+            },
+            error: function () {
+            },
+            beforeSend: function () {
+            },
+            complete: function () {
+                document.location.href = "/Home/Index";
+            }
+        });
+    });
+
+</script>

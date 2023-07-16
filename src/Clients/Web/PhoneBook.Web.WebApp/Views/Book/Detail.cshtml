@@ -1,0 +1,49 @@
+﻿@model PhoneBook.Web.Core.Response<PhoneBook.Web.Entities.Dto.Book.BookDto>
+@using PhoneBook.Web.Core.Enum
+@{
+    List<DropDownListForItemModel> BookContactTypes = new List<DropDownListForItemModel> {
+        new DropDownListForItemModel {
+            Id = 0,
+            Text = "Phone"
+        },
+        new DropDownListForItemModel {
+             Id = 1,
+            Text = "Email"
+        },
+        new DropDownListForItemModel {
+             Id = 2,
+            Text = "Location"
+        }
+    };
+}
+
+<div class="text-center">
+    @if (Model.IsSuccessful)
+    {
+        <h5>@Model.Data.Name @Model.Data.LastName Details</h5>
+
+        <br />
+
+        <h6><b>UUID :</b> @Model.Data.UUID</h6>
+        <h6><b>Name :</b> @Model.Data.Name</h6>
+        <h6><b>LastName :</b> @Model.Data.LastName</h6>
+        <h6><b>Company :</b> @Model.Data.Company</h6>
+
+        <hr />
+
+        <h5>Contacts</h5>
+
+        <hr />
+
+        @foreach (var item in Model.Data.BookContacts)
+        {
+            <h6><b>UUID :</b> @item.UUID</h6>
+            <h6><b>Type :</b> @BookContactTypes[item.Type.GetEnumInteger()].Text</h6>
+            <h6><b>Information :</b> @item.Information</h6>
+
+            <hr />
+        }
+    }
+
+
+</div>

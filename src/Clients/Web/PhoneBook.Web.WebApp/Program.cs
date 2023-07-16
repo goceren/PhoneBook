@@ -1,25 +1,42 @@
+using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using PhoneBook.Web.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+IConfiguration configuration = builder.Configuration;
+builder.Services.AddSingleton(configuration);
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new MappingProfile());
+});
+
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddDependencyInjection();
+
+builder.Services.AddControllersWithViews(options =>
+{
+    options.MaxModelBindingCollectionSize = int.MaxValue;
+
+}).AddJsonOptions(o => { o.JsonSerializerOptions.PropertyNamingPolicy = null; }).AddRazorRuntimeCompilation();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
-app.UseAuthorization();
-
+app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

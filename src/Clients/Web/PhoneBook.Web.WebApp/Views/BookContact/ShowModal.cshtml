@@ -1,0 +1,94 @@
+﻿@model IEnumerable<PhoneBook.Web.Entities.Dto.BookContact.BookContactDto>
+@using PhoneBook.Web.Core.Enum
+@{
+    Layout = null;
+}
+
+<div class="text-center">
+    <table class="table table-bordered" id="bookContactTable">
+        <thead>
+            <tr>
+                <th scope="col">UUID</th>
+                <th scope="col">Type</th>
+                <th scope="col">Information</th>
+                <th scope="col"><button type="button" onclick="InsertBookContact()" class=" btn btn-success">Add</button></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UUID</td>
+                    <td>@item.Type</td>
+                    <td>@item.Information</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+    function InsertBookContact(uuid) {
+        $.ajax({
+            url: '@Url.Action("InsertModal","BookContact")',
+            type: 'POST',
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    console.log(response)
+                    console.log(response.Data)
+                    ShowBootbox('Insert', 'fa-solid fa-pen-to-square',
+                        response.Data,
+                        [],
+                        'large',
+                        'modal-primary',
+                        'false'
+                    );
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+
+    function EditBookContact(uuid) {
+        $.ajax({
+            url: '@Url.Action("EditModal","BookContact")',
+            type: 'POST',
+            dataType: 'json',
+            data: { uuid: uuid },
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    ShowBootbox('Edit', 'fa-solid fa-pen-to-square',
+                        response.Data,
+                        [],
+                        'large',
+                        'modal-primary',
+                        'false'
+                    );
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+
+    function DeleteBookContact(uuid) {
+        $.ajax({
+            url: '@Url.Action("Delete","BookContact")',
+            type: 'POST',
+            dataType: 'json',
+            data: { uuid: uuid },
+            success: function (response) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                    LoadBookTable();
+                }
+            },
+            error: function (hata) {
+
+            }
+        });
+    }
+</script>

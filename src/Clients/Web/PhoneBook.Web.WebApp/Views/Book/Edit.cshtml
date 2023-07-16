@@ -1,0 +1,71 @@
+﻿@model PhoneBook.Web.Entities.Dto.Book.UpdateBookDto
+@using PhoneBook.Web.Core.Enum
+@{
+    Layout = null;
+}
+
+<div class="modal-body px-sm-5 pt-50">
+    <section class="vertical-wizard">
+        <div class="bs-stepper vertical vertical-wizard-example p-4">
+            <form id="CreateForm" >
+                @Html.HiddenFor(i => i.UUID)
+                <div class="row">
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="Name">Name</label>
+                            @Html.TextBoxFor(i => i.Name, new { @class = "form-control", @autocomplete = "off", @placeholder = "Name" })
+                        </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="Description">Lastname</label>
+                            @Html.TextBoxFor(i => i.LastName, new { @class = "form-control", @autocomplete = "off", @placeholder = "LastName" })
+                        </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <div class="col-12">
+                            <label class="form-label" for="State">Company</label>
+                            @Html.TextBoxFor(i => i.Company, new { @class = "form-control", @autocomplete = "off", @placeholder = "Company" })
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-2 pt-50">
+                        <button type="reset" class="btn btn-outline-secondary me-1" data-bs-dismiss="modal" aria-label="Close">
+                            Close
+                        </button>
+                        <button id="submit" type="submit" id="btn-save-role" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+<script>
+    $('#submit').on('click', function(){
+        $.ajax({
+            async: false,
+            type: "post",
+            dataType: "json",
+            data: $("#CreateForm").serialize(),
+            url: '/Book/Edit',
+            success: function (result) {
+                if (response.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
+                }
+                else {
+                }
+            },
+            error: function () {
+            },
+            beforeSend: function () {
+            },
+            complete: function () {
+                document.location.href = "/Home/Index";
+            }
+        });
+    });
+
+</script>
