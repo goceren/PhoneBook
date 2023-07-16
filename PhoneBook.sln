@@ -72,9 +72,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Core", "src\Buildi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C312A733-C777-446A-B6A8-A7C1A58A0643}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue.UnitTest", "tests\UnitTestQueue\Queue.UnitTest\Queue.UnitTest.csproj", "{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queue.UnitTest", "tests\UnitTestQueue\Queue.UnitTest\Queue.UnitTest.csproj", "{9841EFF8-A5DA-4E44-B073-E0BD151FC31D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataApi.UnitTest", "tests\DataApi.UnitTest\DataApi.UnitTest.csproj", "{5BA8978B-7A54-46FE-86D2-04EC616D609E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataApi.UnitTest", "tests\DataApi.UnitTest\DataApi.UnitTest.csproj", "{5BA8978B-7A54-46FE-86D2-04EC616D609E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportApi.UnitTest", "tests\ReportApi.UnitTest\ReportApi.UnitTest.csproj", "{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -174,6 +176,10 @@ Global
 		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BA8978B-7A54-46FE-86D2-04EC616D609E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +217,7 @@ Global
 		{97F21360-96ED-4328-A40A-B17BE1CB7FE5} = {28911D5E-E450-447B-B477-EF4F32ACB815}
 		{9841EFF8-A5DA-4E44-B073-E0BD151FC31D} = {C312A733-C777-446A-B6A8-A7C1A58A0643}
 		{5BA8978B-7A54-46FE-86D2-04EC616D609E} = {C312A733-C777-446A-B6A8-A7C1A58A0643}
+		{A6438FBB-3FDD-4E06-AF97-1E23F5D0A4A8} = {C312A733-C777-446A-B6A8-A7C1A58A0643}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DAE62CF-E4D3-4731-8663-DCC653FB0327}
