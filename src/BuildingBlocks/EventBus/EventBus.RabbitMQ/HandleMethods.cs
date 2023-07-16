@@ -1,36 +1,40 @@
-﻿using System;
+﻿using EventBus.Business.Abstract;
+using EventBus.Core.Dto;
+using EventBus.Core.Models;
+using EventBus.Core.ResponseTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static EventBus.Core.Enum.Enums;
 
 namespace EventBus.RabbitMQService
 {
     public class HandleMethods
     {
-        public Task CreateReport(CreateReportModel test)
+        private readonly IReportQService _reportQService;
+        public HandleMethods(IReportQService reportQService)
         {
-            return Task.CompletedTask;
+            _reportQService = reportQService;
         }
 
-        public Task GetReports(GetReportModel test)
+        public async Task<Response<ReportDto>> CreateReport(CreateReportModel reportRequestModel)
         {
-            return Task.CompletedTask;
+
+            var initReportToQueue = await _reportQService.CreateReport(reportRequestModel);
+
+            Thread.Sleep(10000);
+
+            if (initReportToQueue.IsSuccessful)
+            {
+                return await _reportQService.CompleteReport(reportRequestModel);
+            }
+            else
+            {
+                return initReportToQueue;
+            }
         }
     }
-
-
-
-    public class GetReportModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
-
-    public class CreateReportModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+ 
 }

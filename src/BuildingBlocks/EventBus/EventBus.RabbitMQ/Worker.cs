@@ -1,3 +1,4 @@
+using EventBus.Business.Abstract;
 using EventBus.RabbitMQService;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -14,14 +15,16 @@ namespace EventBus.RabbitMQ
         private IModel _channel;
         private MethodInfo[] _queueMethods;
         private HandleMethods _handleMethod;
+        private readonly IReportQService _reportQService;
 
-        public Worker(ILogger<Worker> logger, IConfiguration configuration)
+        public Worker(ILogger<Worker> logger, IConfiguration configuration, IReportQService reportQService)
         {
+            _reportQService = reportQService;
             _configuration = configuration;
             _logger = logger;
-            _handleMethod = new HandleMethods();
+            _handleMethod = new HandleMethods(_reportQService);
             _queueMethods = typeof(HandleMethods)
-                           .GetMethods().Where(i => i.ReturnType == typeof(Task)).ToArray();
+                           .GetMethods().Where(i => i.ReturnType == typeof(Task) || i.ReturnType.BaseType == typeof(Task)).ToArray();
             InitRabbitMQ();
         }
 
@@ -37,9 +40,10 @@ namespace EventBus.RabbitMQ
 
             foreach (var item in _queueMethods)
             {
-                _channel.QueueDeclare(item.Name, false, false, false, null);
-                _channel.QueueBind(item.Name, exchangeName, item.Name + ".*", null);
+                _channel.QueueDeclare(item.Name, false, false, false);
+                _channel.QueueBind(item.Name, exchangeName, item.Name);
             }
+
             _channel.BasicQos(0, 1, false);
 
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
@@ -55,7 +59,7 @@ namespace EventBus.RabbitMQ
                 var method = typeof(HandleMethods).GetMethod(ea.RoutingKey);
                 var parameterType = method.GetParameters()[0].ParameterType;
                 var model = JsonConvert.DeserializeObject(content, parameterType);
-                method.Invoke(_handleMethod, new object[1] { model });
+                var response = method.Invoke(_handleMethod, new object[1] { model });
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
 
