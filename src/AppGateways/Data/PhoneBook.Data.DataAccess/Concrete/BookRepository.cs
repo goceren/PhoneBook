@@ -28,5 +28,10 @@ namespace PhoneBook.Data.DataAccess.Concrete
         {
             return _dbSet.Where(filter).Include(i => i.BookContacts.Where(i => !i.Deleted));
         }
+
+        public async Task<Book> GetBookIncludeContact(Expression<Func<Book, bool>> filter = null)
+        {
+            return _dbSet.Where(filter).Include(i => i.BookContacts.Where(i => !i.Deleted)).FirstOrDefault();
+        }
     }
 }

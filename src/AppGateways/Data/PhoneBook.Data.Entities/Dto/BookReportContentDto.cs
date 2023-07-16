@@ -13,8 +13,6 @@ namespace PhoneBook.Data.Entities.Dto
         {
             Books = new HashSet<BookDto>();
         }
-
-
         public string Location { get; set; }
 
         public virtual IEnumerable<BookDto> Books { get; set; }

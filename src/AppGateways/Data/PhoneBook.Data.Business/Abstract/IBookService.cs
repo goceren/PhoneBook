@@ -19,5 +19,7 @@ namespace PhoneBook.Data.Business.Abstract
         Task<Response<BookDto>> Delete(Guid uuid);
         Task<Response<IEnumerable<BookDto>>> GetList(Expression<Func<Book, bool>> filter = null);
         Task<Response<BookReportContentDto>> GetByLocationIncludeContact(BookStatusAndLocationFilterDto model);
+
+        Task<Response<BookDto>> GetBookIncludeContact(Guid uuid);
     }
 }

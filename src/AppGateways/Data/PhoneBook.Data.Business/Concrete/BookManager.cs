@@ -183,5 +183,29 @@ namespace PhoneBook.Data.Business.Concrete
                 return Response<BookReportContentDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
+
+        public async Task<Response<BookDto>> GetBookIncludeContact(Guid uuid)
+        {
+            try
+            {
+                var controlData = await _uow.BookRepository.GetBookIncludeContact(i => i.UUID == uuid);
+                if (controlData != null)
+                {
+
+                    var response = _mapper.Map<BookDto>(controlData);
+                    return Response<BookDto>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                }
+                else
+                {
+                    return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+            }
+        }
     }
 }

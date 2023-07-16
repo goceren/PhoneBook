@@ -50,6 +50,12 @@ namespace PhoneBook.Data.Api.Controllers
             return await _bookService.Delete(uuid);
         }
 
+        [HttpGet("GetBookIncludeContact/{uuid:guid}")]
+        public async Task<Response<BookDto>> GetByLocationIncludeContact(Guid uuid)
+        {
+            return await _bookService.GetBookIncludeContact(uuid);
+        }
+
         [HttpPost("GetByLocationIncludeContact")]
         public async Task<Response<BookReportContentDto>> GetByLocationIncludeContact(BookStatusAndLocationFilterDto model)
         {
