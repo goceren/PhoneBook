@@ -10,10 +10,12 @@ namespace PhoneBook.Report.Business.Abstract
 {
     public interface IReportService
     {
-        Task<Response<Entities.Concrete.Report>> GetReportById(Guid uuid);
-        Task<Response<Entities.Concrete.Report>> Insert(Entities.Concrete.Report entity);
-        Task<Response<Report.Entities.Concrete.Report>> Update(Report.Entities.Concrete.Report entity);
-        Task<Response<Report.Entities.Concrete.Report>> Delete(Guid uuid);
-        Task<Response<List<Report.Entities.Concrete.Report>>> GetList(Expression<Func<Report.Entities.Concrete.Report, bool>> filter = null);
+        Task<Response<Entities.Dto.Report.ReportDto>> GetReportById(Guid uuid);
+
+        Task<Response<Entities.Dto.Report.ReportDto>> Get(Expression<Func<Report.Entities.Concrete.Report, bool>> filter = null);
+        Task<Response<Entities.Dto.Report.ReportDto>> Insert(Entities.Dto.Report.InsertReportDto entity);
+        Task<Response<Report.Entities.Dto.Report.ReportDto>> Update(Report.Entities.Dto.Report.UpdateReportDto entity);
+        Task<Response<Report.Entities.Dto.Report.ReportDto>> Delete(Guid uuid);
+        Task<Response<IEnumerable<Report.Entities.Dto.Report.ReportDto>>> GetList(Expression<Func<Report.Entities.Concrete.Report, bool>> filter = null);
     }
 }

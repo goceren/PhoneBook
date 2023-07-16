@@ -1,15 +1,13 @@
-﻿using PhoneBook.Report.Core.Entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PhoneBook.Report.Entities.Concrete
+namespace PhoneBook.Report.Entities.Dto.Report
 {
-    public partial class Report : BaseEntity
+    public class InsertReportDto
     {
-        public Guid UUID { get; set; }
         public Guid RequestUUID { get; set; }
         public DateTime RequestDate { get; set; }
         public Core.Enum.Enums.ReportStatusEnum Status { get; set; }

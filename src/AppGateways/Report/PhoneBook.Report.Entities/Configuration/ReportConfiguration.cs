@@ -14,6 +14,7 @@ namespace PhoneBook.Report.Entities.Configuration
         {
             builder.HasKey(x => x.UUID);
             builder.Property(x => x.UUID).ValueGeneratedOnAdd();
+            builder.Property(x => x.RequestUUID);
             builder.Property(x => x.RequestDate).IsRequired();
             builder.Property(x => x.Status).IsRequired();
         }

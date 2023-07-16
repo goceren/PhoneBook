@@ -18,9 +18,13 @@ namespace PhoneBook.Report.Api.Infrastructures
 
             #region DataAccess
 
-            services.AddTransient<IReportDal, EfReportDal>();
+            services.AddTransient<IReportRepository, ReportRepository>();
 
             #endregion
+
+            services.AddTransient<IUnitOfWorkReport, UnitOfWorkReport>();
+
+
 
             return services;
         }
