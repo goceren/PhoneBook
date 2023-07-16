@@ -58,7 +58,7 @@ namespace ReportService.Business.Concrete
                 channel.BasicConsume("CreateReport", true, consumerEvent);
 
 
-                return Response<ReportRequestDto>.Success(model, Enums.ResponseStatusEnum.Error.GetEnumInteger(), "Report Request in Queue");
+                return Response<ReportRequestDto>.Success(model, Enums.ResponseStatusEnum.Success.GetEnumInteger(), "Report Request in Queue");
             }
             catch (Exception ex)
             {

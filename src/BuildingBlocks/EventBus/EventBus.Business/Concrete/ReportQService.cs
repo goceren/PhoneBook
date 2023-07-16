@@ -81,19 +81,16 @@ namespace EventBus.Business.Concrete
                     {
                         var json = await response.Content.ReadAsStringAsync();
                         var data = JsonConvert.DeserializeObject<Response<BookReportContentDto>>(json);
+                        var controlReport = httpClient.GetAsync(reportApiUrl + "/api/Report/GetByRequestUuid/" + model.RequestUUID).Result;
+                        var controlReportJson = await controlReport.Content.ReadAsStringAsync();
+                        var controlReportResult = JsonConvert.DeserializeObject<Response<ReportDto>>(controlReportJson);
+                        ReportDto reportData;
 
                         if (data != null && data.IsSuccessful)
                         {
-                            
-
-
-                            var controlReport = httpClient.GetAsync(reportApiUrl + "/api/Report/GetByRequestUuid/" + model.RequestUUID).Result;
-                            var controlReportJson = await controlReport.Content.ReadAsStringAsync();
-                            var controlReportResult = JsonConvert.DeserializeObject<Response<ReportDto>>(controlReportJson);
-
                             if (controlReportResult.IsSuccessful)
                             {
-                                var reportData = new ReportDto()
+                                reportData = new ReportDto()
                                 {
                                     RequestUUID= controlReportResult.Data.RequestUUID,
                                     UUID = controlReportResult.Data.UUID,
@@ -103,24 +100,31 @@ namespace EventBus.Business.Concrete
                                     PersonPhoneCount = data.Data.Books.SelectMany(i => i.BookContacts).Where(i => i.Type == Enums.ContactTypeEnum.Phone).Count(),
                                     RequestDate = controlReportResult.Data.RequestDate,
                                 };
-                                var reportContent = new StringContent(JsonConvert.SerializeObject(reportData), Encoding.UTF8, "application/json");
-                                var insertReportResponse = httpClient.PutAsync(reportApiUrl + "/api/Report", reportContent).Result;
-                                var insertReportResponseJson = await insertReportResponse.Content.ReadAsStringAsync();
-                                var reportResult = JsonConvert.DeserializeObject<Response<ReportDto>>(insertReportResponseJson);
-
-                                return reportResult;
                             }
-
                             else
                             {
                                 return Response<ReportDto>.Fail(Enums.ResponseStatusEnum.NoData.GetEnumInteger(), new List<string>() { "Veri Bulunamadı" });
-
                             }
                         }
                         else
                         {
-                            return Response<ReportDto>.Fail(Enums.ResponseStatusEnum.NoData.GetEnumInteger(), new List<string>() { "Veri Bulunamadı" });
+                            reportData = new ReportDto()
+                            {
+                                RequestUUID = controlReportResult.Data.RequestUUID,
+                                UUID = controlReportResult.Data.UUID,
+                                Location = controlReportResult.Data.Location,
+                                Status = ReportStatusEnum.Completed,
+                                PersonCount = controlReportResult.Data.PersonCount,
+                                PersonPhoneCount = controlReportResult.Data.PersonPhoneCount,
+                                RequestDate = controlReportResult.Data.RequestDate,
+                            };
                         }
+
+                        var reportContent = new StringContent(JsonConvert.SerializeObject(reportData), Encoding.UTF8, "application/json");
+                        var insertReportResponse = httpClient.PutAsync(reportApiUrl + "/api/Report", reportContent).Result;
+                        var insertReportResponseJson = await insertReportResponse.Content.ReadAsStringAsync();
+                        var reportResult = JsonConvert.DeserializeObject<Response<ReportDto>>(insertReportResponseJson);
+                        return reportResult;
                     }
                     else
                     {

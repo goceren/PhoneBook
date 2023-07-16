@@ -14,9 +14,11 @@ namespace EventBus.RabbitMQService
     public class HandleMethods
     {
         private readonly IReportQService _reportQService;
-        public HandleMethods(IReportQService reportQService)
+        private int DelayTime = 10;
+        public HandleMethods(IReportQService reportQService, int delayTime = 10)
         {
             _reportQService = reportQService;
+            DelayTime = delayTime;
         }
 
         public async Task<Response<ReportDto>> CreateReport(CreateReportModel reportRequestModel)
@@ -24,7 +26,7 @@ namespace EventBus.RabbitMQService
 
             var initReportToQueue = await _reportQService.CreateReport(reportRequestModel);
 
-            Thread.Sleep(10000);
+            Thread.Sleep(1000 * DelayTime);
 
             if (initReportToQueue.IsSuccessful)
             {

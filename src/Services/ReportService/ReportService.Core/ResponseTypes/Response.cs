@@ -15,7 +15,7 @@ namespace ReportService.Core.ResponseTypes
 
         public static Response<T> Success(T data, int statusCode, string friendlyMessage = "ActionWasSuccessful")
         {
-            return new Response<T> { Data = data, StatusCode = statusCode, IsSuccessful = true };
+            return new Response<T> { Data = data, StatusCode = statusCode, IsSuccessful = true};
         }
 
         public static Response<T> Fail(int statusCode, List<string> errors, string friendlyMessage = "ActionFailed")

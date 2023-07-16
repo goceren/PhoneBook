@@ -15,7 +15,11 @@
                             @Html.TextBoxFor(i => i.Location, new { @class = "form-control", @autocomplete = "off", @placeholder = "Location" })
                         </div>
                     </div>
-
+                    <hr />
+                    <div class="mb-1">
+                        <div class="col-12" id="messageArea">
+                        </div>
+                    </div>
                     <div class="col-12 text-center mt-2 pt-50">
                         <button type="reset" class="btn btn-outline-secondary me-1" data-bs-dismiss="modal" aria-label="Close">
                             Close
@@ -30,7 +34,6 @@
 
 
 
-
 <script>
     $('#submit').on('click', function () {
         $.ajax({
@@ -41,19 +44,27 @@
             url: '/Report/CreateReportRequest',
             success: function (result) {
                 if (result.StatusCode == '@(Enums.ResponseStatusEnum.Success.GetEnumInteger())') {
-                    console.log(result)
+                    $('#messageArea').html("<h5>Report Request in Queue</h5>")
                 }
                 else {
+                    $('#messageArea').html("<h5>" + result.Errors[0] + "</h5>")
                 }
+
+                let timerId = setInterval(Redirect(), 15000);
             },
             error: function () {
             },
             beforeSend: function () {
             },
             complete: function () {
-                document.location.href = "/Report/Index";
             }
         });
     });
+
+
+    function Redirect(){
+        document.location.href = "/Report/Index";
+
+    }
 
 </script>

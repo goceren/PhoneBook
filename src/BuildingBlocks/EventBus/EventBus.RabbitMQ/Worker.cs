@@ -22,7 +22,8 @@ namespace EventBus.RabbitMQ
             _reportQService = reportQService;
             _configuration = configuration;
             _logger = logger;
-            _handleMethod = new HandleMethods(_reportQService);
+            var delayTime = _configuration.GetValue<int>("QueueDelayTime");
+            _handleMethod = new HandleMethods(_reportQService, delayTime);
             _queueMethods = typeof(HandleMethods)
                            .GetMethods().Where(i => i.ReturnType == typeof(Task) || i.ReturnType.BaseType == typeof(Task)).ToArray();
             InitRabbitMQ();
