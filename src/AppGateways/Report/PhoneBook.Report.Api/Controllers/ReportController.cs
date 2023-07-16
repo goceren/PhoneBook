@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PhoneBook.Report.Business.Abstract;
 using PhoneBook.Report.Core.ResponseTypes;
+using PhoneBook.Report.Entities.Dto.Report;
 using System;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PhoneBook.Report.Api.Controllers
 {
@@ -19,33 +18,38 @@ namespace PhoneBook.Report.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<Response<List<Entities.Concrete.Report>>> Get()
+        public async Task<Response<IEnumerable<ReportDto>>> Get()
         {
             return await _reportService.GetList();
         }
 
         [HttpGet("{uuid:guid}")]
-        public async Task<Response<Entities.Concrete.Report>> Get(Guid uuid)
+        public async Task<Response<ReportDto>> Get(Guid uuid)
         {
             return await _reportService.GetReportById(uuid);
         }
 
+        [HttpGet("GetByRequestUuid/{uuid:guid}")]
+        public async Task<Response<ReportDto>> GetByRequestUuid(Guid uuid)
+        {
+            return await _reportService.Get(i => i.RequestUUID == uuid);
+        }
+
         [HttpPost]
-        public async Task<Response<Entities.Concrete.Report>> Post([FromBody] Entities.Concrete.Report entity)
+        public async Task<Response<ReportDto>> Post([FromBody] InsertReportDto entity)
         {
             return await _reportService.Insert(entity);
-
         }
 
         [HttpPut]
-        public async Task<Response<Entities.Concrete.Report>> Put([FromBody] Entities.Concrete.Report entity)
+        public async Task<Response<ReportDto>> Put([FromBody] UpdateReportDto entity)
         {
             return await _reportService.Update(entity);
 
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task<Response<Entities.Concrete.Report>> Delete(Guid uuid)
+        public async Task<Response<ReportDto>> Delete(Guid uuid)
         {
             return await _reportService.Delete(uuid);
         }

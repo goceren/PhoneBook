@@ -10,6 +10,11 @@ namespace PhoneBook.Report.DataAccess.Context
 {
     public partial class ReportContext : DbContext
     {
+
+        public ReportContext(DbContextOptions<ReportContext> options) : base(options)
+        {
+        }
+
         public DbSet<PhoneBook.Report.Entities.Concrete.Report> Reports { get; set; }
 
 
