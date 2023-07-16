@@ -10,72 +10,54 @@ using System.Threading.Tasks;
 
 namespace PhoneBook.Data.Core.DataAccess.EntityFramework
 {
-    public class GenericRepository<TEntity, TContext> : IEntityRepository<TEntity>
-         where TEntity : class, BaseEntity, new()
-        where TContext : DbContext, new()
+    public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        public async Task<TEntity> Delete(Expression<Func<TEntity, bool>> filter = null)
+
+        private readonly DbContext _context;
+        private readonly DbSet<TEntity> _dbSet;
+        protected GenericRepository(DbContext context)
         {
-            using (var context = new TContext())
-            {
-                var removeData = await context.Set<TEntity>().FirstOrDefaultAsync(filter);
-
-                if (removeData != null)
-                {
-                    context.Set<TEntity>().Remove(removeData);
-                    context.SaveChanges();
-                }
-
-                return removeData;
-            }
+            _context = context;
+            _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> Delete(Expression<Func<TEntity, bool>> filter)
         {
-            using (var context = new TContext())
+            var removeData = await _dbSet.FirstOrDefaultAsync(filter);
+
+            if (removeData != null)
             {
-                return await context.Set<TEntity>().FirstOrDefaultAsync(filter);
+                _dbSet.Remove(removeData);
             }
+            return removeData;
         }
 
-        public async Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> filter)
         {
-            using (var context = new TContext())
-            {
-                return await context.Set<TEntity>().Where(filter).ToListAsync();
-            }
+            return await _dbSet.FirstOrDefaultAsync(filter);
+        }
+
+        public async Task<IQueryable<TEntity>> GetList(Expression<Func<TEntity, bool>> filter)
+        {
+            return filter == null ? _dbSet.Where(i => true) : _dbSet.Where(filter);
         }
 
         public async Task<TEntity> Insert(TEntity Entity)
         {
-            using (var context = new TContext())
-            {
-                var insertData = await context.Set<TEntity>().AddAsync(Entity);
-                await context.SaveChangesAsync();
-
-                return insertData.Entity;
-            }
+            var insertData = await _dbSet.AddAsync(Entity);
+            return insertData.Entity;
         }
 
         public async Task InsertList(List<TEntity> Entity)
         {
-            using (var context = new TContext())
-            {
-                await context.Set<TEntity>().AddRangeAsync(Entity);
-                await context.SaveChangesAsync();
-            }
+            await _dbSet.AddRangeAsync(Entity);
         }
 
         public async Task<TEntity> Update(TEntity Entity)
         {
-            using (var context = new TContext())
-            {
-                var updatedData = context.Set<TEntity>().Update(Entity);
-                await context.SaveChangesAsync();
+            var updatedData = _dbSet.Update(Entity);
 
-                return updatedData.Entity;
-            }
-
+            return updatedData.Entity;
         }
 
         public void Dispose()

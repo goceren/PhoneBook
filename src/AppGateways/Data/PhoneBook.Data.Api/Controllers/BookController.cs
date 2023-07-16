@@ -2,6 +2,8 @@
 using PhoneBook.Data.Business.Abstract;
 using PhoneBook.Data.Core.ResponseTypes;
 using PhoneBook.Data.Entities.Concrete;
+using PhoneBook.Data.Entities.Dto;
+using PhoneBook.Data.Entities.Dto.Book;
 
 namespace PhoneBook.Data.Api.Controllers
 {
@@ -17,35 +19,41 @@ namespace PhoneBook.Data.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<Response<List<Book>>> Get()
+        public async Task<Response<IEnumerable<BookDto>>> Get()
         {
-            return await _bookService.GetList();
+            return await _bookService.GetList( i=> !i.Deleted);
         }
 
         [HttpGet("{uuid:guid}")]
-        public async Task<Response<Book>> Get(Guid uuid)
+        public async Task<Response<BookDto>> Get(Guid uuid)
         {
             return await _bookService.GetBookById(uuid);
         }
 
         [HttpPost]
-        public async Task<Response<Book>> Post([FromBody] Book entity)
+        public async Task<Response<BookDto>> Post([FromBody] InsertBookDto entity)
         {
             return await _bookService.Insert(entity);
 
         }
 
         [HttpPut]
-        public async Task<Response<Book>> Put([FromBody] Book entity)
+        public async Task<Response<BookDto>> Put([FromBody] UpdateBookDto entity)
         {
             return await _bookService.Update(entity);
 
         }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<Response<Book>> Delete(Guid uuid)
+        [HttpDelete("{uuid:guid}")]
+        public async Task<Response<BookDto>> Delete(Guid uuid)
         {
             return await _bookService.Delete(uuid);
+        }
+
+        [HttpPost("GetByLocationIncludeContact")]
+        public async Task<Response<BookReportContentDto>> GetByLocationIncludeContact(BookStatusAndLocationFilterDto model)
+        {
+            return await _bookService.GetByLocationIncludeContact(model);
         }
     }
 }

@@ -18,6 +18,7 @@ namespace PhoneBook.Data.Entities.Concrete
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Company{ get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<BookContact> BookContacts { get; set; }
     }

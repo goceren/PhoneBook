@@ -21,10 +21,14 @@ namespace PhoneBook.Data.Api.Infrastructures
 
             #region DataAccess
 
-            services.AddTransient<IBookDal, EfBookDal>();
-            services.AddTransient<IBookContactDal, EfBookContactDal>();
+            services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IBookContactRepository, BookContactRepository>();
 
             #endregion
+
+
+            services.AddTransient<IUnitOfWorkPhoneBook, UnitOfWorkPhoneBook>();
+
 
             return services;
         }

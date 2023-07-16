@@ -1,8 +1,12 @@
-﻿using PhoneBook.Data.Business.Abstract;
+﻿using AutoMapper;
+using PhoneBook.Data.Business.Abstract;
 using PhoneBook.Data.Core.Enum;
 using PhoneBook.Data.Core.ResponseTypes;
 using PhoneBook.Data.DataAccess.Abstract;
 using PhoneBook.Data.Entities.Concrete;
+using PhoneBook.Data.Entities.Dto;
+using PhoneBook.Data.Entities.Dto.Book;
+using PhoneBook.Data.Entities.Dto.BookContact;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,120 +18,169 @@ namespace PhoneBook.Data.Business.Concrete
 {
     public class BookManager : IBookService
     {
-        private readonly IBookDal _bookDal;
 
-        public BookManager(IBookDal bookDal)
+        private readonly IUnitOfWorkPhoneBook _uow;
+        private readonly IMapper _mapper;
+        public BookManager(IUnitOfWorkPhoneBook uow, IMapper mapper)
         {
-            _bookDal = bookDal;
+            _uow = uow;
+            _mapper = mapper;
         }
 
-        public async Task<Response<List<Book>>> GetList(Expression<Func<Book, bool>> filter = null)
+        public async Task<Response<IEnumerable<BookDto>>> GetList(Expression<Func<Book, bool>> filter = null)
         {
             try
             {
-                var response = await _bookDal.GetList(filter);
 
-                if (response != null)
+                var dataList = await _uow.BookRepository.GetList(filter);
+                if (dataList != null && dataList.Count() > 0)
                 {
-                    return Response<List<Book>>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                    var response = _mapper.Map<List<BookDto>>(dataList);
+
+                    return Response<IEnumerable<BookDto>>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
                 }
                 else
                 {
-                    return Response<List<Book>>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "Veri Bulunamadı" });
+                    return Response<IEnumerable<BookDto>>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "Veri Bulunamadı" });
                 }
 
             }
             catch (Exception ex)
             {
-                return Response<List<Book>>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+                return Response<IEnumerable<BookDto>>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
 
-        public async Task<Response<Book>> GetBookById(Guid uuid)
+        public async Task<Response<BookDto>> GetBookById(Guid uuid)
         {
             try
             {
-                var response = await _bookDal.Get(i => i.UUID == uuid);
+                var dataControl = await _uow.BookRepository.Get(i => i.UUID == uuid && !i.Deleted);
 
-                if (response != null)
+                if (dataControl != null)
                 {
-                    return Response<Book>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                    var response = _mapper.Map<BookDto>(dataControl);
+
+                    return Response<BookDto>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
                 }
                 else
                 {
-                    return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "Veri Bulunamadı" });
+                    return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "Veri Bulunamadı" });
                 }
 
             }
             catch (Exception ex)
             {
-                return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+                return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
 
-        public async Task<Response<Book>> Insert(Book entity)
+        public async Task<Response<BookDto>> Insert(InsertBookDto entity)
         {
             try
             {
-                var response = await _bookDal.Insert(entity);
+                var requestModel = _mapper.Map<Book>(entity);
 
-                if (response != null)
+                var addedData = await _uow.BookRepository.Insert(requestModel);
+                await _uow.CommitAsync();
+                if (addedData != null)
                 {
-                    return Response<Book>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                    var response = _mapper.Map<BookDto>(addedData);
+
+                    return Response<BookDto>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
                 }
                 else
                 {
-                    return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
+                    return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
                 }
 
             }
             catch (Exception ex)
             {
-                return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+                return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
 
-        public async Task<Response<Book>> Update(Book entity)
+        public async Task<Response<BookDto>> Update(UpdateBookDto entity)
         {
             try
             {
-                var response = await _bookDal.Update(entity);
+                var requestModel = _mapper.Map<Book>(entity);
 
-                if (response != null)
+                var updatedData = await _uow.BookRepository.Update(requestModel);
+                await _uow.CommitAsync();
+                if (updatedData != null)
                 {
-                    return Response<Book>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                    var response = _mapper.Map<BookDto>(updatedData);
+
+                    return Response<BookDto>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
                 }
                 else
                 {
-                    return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
+                    return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
                 }
 
             }
             catch (Exception ex)
             {
-                return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+                return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
 
-        public async Task<Response<Book>> Delete(Guid uuid)
+        public async Task<Response<BookDto>> Delete(Guid uuid)
         {
             try
             {
-                var response = await _bookDal.Delete(i => i.UUID == uuid);
-
-                if (response != null)
+                var controlData = await _uow.BookRepository.Get(i => i.UUID == uuid);
+                if (controlData != null)
                 {
-                    return Response<Book>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                    controlData.Deleted = true;
+                    var deletedData = await _uow.BookRepository.Update(controlData);
+                    await _uow.CommitAsync();
+
+                    var response = _mapper.Map<BookDto>(deletedData);
+
+                    return Response<BookDto>.Success(response, Enums.ResponseStatusEnum.Success.GetEnumInteger());
                 }
                 else
                 {
-                    return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
+                    return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
                 }
+
 
             }
             catch (Exception ex)
             {
-                return Response<Book>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+                return Response<BookDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
+            }
+        }
+
+        public async Task<Response<BookReportContentDto>> GetByLocationIncludeContact(BookStatusAndLocationFilterDto model)
+        {
+            try
+            {
+                var controlData = await _uow.BookRepository.GetIncludeContact(i => !i.Deleted && i.BookContacts.Any(i => i.Type == Enums.ContactTypeEnum.Location && i.Information.Equals(model.Location)));
+                if (controlData != null && controlData.Count() > 0)
+                {
+
+                    var response = _mapper.Map<IEnumerable<BookDto>>(controlData);
+                    var returnModel = new BookReportContentDto()
+                    {
+                        Location = model.Location,
+                        Books = response
+                    };
+                    return Response<BookReportContentDto>.Success(returnModel, Enums.ResponseStatusEnum.Success.GetEnumInteger());
+                }
+                else
+                {
+                    return Response<BookReportContentDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { "İşlem Başarısız" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return Response<BookReportContentDto>.Fail(Enums.ResponseStatusEnum.Error.GetEnumInteger(), new List<string> { ex.Message });
             }
         }
     }

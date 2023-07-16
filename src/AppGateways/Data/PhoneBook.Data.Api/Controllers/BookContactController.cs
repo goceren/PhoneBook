@@ -2,6 +2,7 @@
 using PhoneBook.Data.Business.Abstract;
 using PhoneBook.Data.Core.ResponseTypes;
 using PhoneBook.Data.Entities.Concrete;
+using PhoneBook.Data.Entities.Dto.BookContact;
 
 namespace PhoneBook.Data.Api.Controllers
 {
@@ -17,35 +18,41 @@ namespace PhoneBook.Data.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<Response<List<BookContact>>> Get()
+        public async Task<Response<IEnumerable<BookContactDto>>> Get()
         {
-            return await _bookContactService.GetList();
+            return await _bookContactService.GetList(i => !i.Deleted);
         }
 
         [HttpGet("{uuid:guid}")]
-        public async Task<Response<BookContact>> Get(Guid uuid)
+        public async Task<Response<BookContactDto>> Get(Guid uuid)
         {
             return await _bookContactService.GetBookContactById(uuid);
         }
 
         [HttpPost]
-        public async Task<Response<BookContact>> Post([FromBody] BookContact entity)
+        public async Task<Response<BookContactDto>> Post([FromBody] InsertBookContactDto entity)
         {
             return await _bookContactService.Insert(entity);
 
         }
 
         [HttpPut]
-        public async Task<Response<BookContact>> Put([FromBody] BookContact entity)
+        public async Task<Response<BookContactDto>> Put([FromBody] UpdateBookContactDto entity)
         {
             return await _bookContactService.Update(entity);
 
         }
 
-        [HttpDelete("{id:guid}")]
-        public async Task<Response<BookContact>> Delete(Guid uuid)
+        [HttpDelete("{uuid:guid}")]
+        public async Task<Response<BookContactDto>> Delete(Guid uuid)
         {
             return await _bookContactService.Delete(uuid);
+        }
+
+        [HttpGet("GetListByBook/{uuid:guid}")]
+        public async Task<Response<IEnumerable<BookContactDto>>> GetListByBook(Guid uuid)
+        {
+            return await _bookContactService.GetList(i => i.BookUUID == uuid && !i.Deleted);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using PhoneBook.Data.Core.ResponseTypes;
 using PhoneBook.Data.Entities.Concrete;
+using PhoneBook.Data.Entities.Dto;
+using PhoneBook.Data.Entities.Dto.Book;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +13,11 @@ namespace PhoneBook.Data.Business.Abstract
 {
     public interface IBookService
     {
-        Task<Response<Book>> GetBookById(Guid uuid);
-        Task<Response<Book>> Insert(Book entity);
-        Task<Response<Book>> Update(Book entity);
-        Task<Response<Book>> Delete(Guid uuid);
-        Task<Response<List<Book>>> GetList(Expression<Func<Book, bool>> filter = null);
+        Task<Response<BookDto>> GetBookById(Guid uuid);
+        Task<Response<BookDto>> Insert(InsertBookDto entity);
+        Task<Response<BookDto>> Update(UpdateBookDto entity);
+        Task<Response<BookDto>> Delete(Guid uuid);
+        Task<Response<IEnumerable<BookDto>>> GetList(Expression<Func<Book, bool>> filter = null);
+        Task<Response<BookReportContentDto>> GetByLocationIncludeContact(BookStatusAndLocationFilterDto model);
     }
 }
