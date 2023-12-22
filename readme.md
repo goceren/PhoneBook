@@ -1,20 +1,20 @@
 **Proje Kurulumu**
 
-- "src/AppGateways/Data" konumunda bulunan "PhoneBook.Data.Api" projesini "set a startup project" olarak işaretledikten sonra appsettings.json dosyasına PostgreSQL ConnectionString yazılır. 
-- "PhoneBook.Data.DataAccess" projesini Package Manager Console'unda "update-database" komutuyla PostgreSQL veritabanını oluşturulur.
-- "src/AppGateways/Report" konumunda bulunan "PhoneBook.Report.Api" projesini "set a startup project" olarak işaretledikten sonra appsettings.json dosyasına PostgreSQL ConnectionString yazılır. 
-- "PhoneBook.Report.DataAccess" projesini Package Manager Console'unda "update-database" komutuyla PostgreSQL veritabanını oluşturulur.
+- "src/AppGateways/Data" konumunda bulunan "PhoneBook.Data.Api" projesini "set a startup project" olarak iÅŸaretledikten sonra appsettings.json dosyasÄ±na PostgreSQL ConnectionString yazÄ±lÄ±r. 
+- "PhoneBook.Data.DataAccess" projesini Package Manager Console'unda "update-database" komutuyla PostgreSQL veritabanÄ±nÄ± oluÅŸturulur.
+- "src/AppGateways/Report" konumunda bulunan "PhoneBook.Report.Api" projesini "set a startup project" olarak iÅŸaretledikten sonra appsettings.json dosyasÄ±na PostgreSQL ConnectionString yazÄ±lÄ±r. 
+- "PhoneBook.Report.DataAccess" projesini Package Manager Console'unda "update-database" komutuyla PostgreSQL veritabanÄ±nÄ± oluÅŸturulur.
 
-RabbitMQ Configuration ise yine "EventBus.RabbitMQ" projesinin appsettings.json dosyayında bulunmaktadır.
+RabbitMQ Configuration ise yine "EventBus.RabbitMQ" projesinin appsettings.json dosyayÄ±nda bulunmaktadÄ±r.
 
-Ardından Solution üzerine sağ tıklayarak startup project olarak;
+ArdÄ±ndan Solution Ã¼zerine saÄŸ tÄ±klayarak startup project olarak;
 - PhoneBook.Data.Api
 - PhoneBook.Report.Api
 - EventBus.RabbitMQ
 - PhoneBook.Web.WebApp
 - ReportService
 
-projeleri seçilir ve proje başlatılır.
+projeleri seÃ§ilir ve proje baÅŸlatÄ±lÄ±r.
 
 TEKNOLOJILER
 
@@ -24,4 +24,4 @@ TEKNOLOJILER
 - EntityFramework Core 
 - PostgreSQL
 - BackgroundService
-- 
+  
